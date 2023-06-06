@@ -18,20 +18,19 @@ def calculate_happiness(set_point, life_circumstances, voluntary_activities):
 def main():
     st.title("Happiness Calculator")
     
-    with st.container():
-        st.subheader("Set Point")
-        
-        # Checkbox questions for genetic predisposition and weight gain
-        genetic_predisposition = st.checkbox("1. Genetic predisposition towards happiness")
-        weight_gain = st.checkbox("2. Experienced weight gain")
-        
-        # Calculate set point based on checkbox values
-        set_point = 5.0  # Default set point
-        if genetic_predisposition:
-            set_point -= 0.5
-        if weight_gain:
-            set_point -= 0.5
+    st.sidebar.subheader("Set Point")
     
+    # Checkbox questions for genetic predisposition and weight gain
+    genetic_predisposition = st.sidebar.checkbox("1. Genetic predisposition towards happiness")
+    weight_gain = st.sidebar.checkbox("2. Experienced weight gain")
+    
+    # Calculate set point based on checkbox values
+    set_point = 5.0  # Default set point
+    if genetic_predisposition:
+        set_point -= 0.5
+    if weight_gain:
+        set_point -= 0.5
+
     with st.container():
         st.subheader("Life Circumstances")
         
@@ -45,7 +44,7 @@ def main():
         social_support = st.slider("Strong social support", 0.0, 10.0, 5.0)
         engagement_social = st.slider("Engagement in social activities", 0.0, 10.0, 5.0)
     
-    with st.container():
+    with st.sidebar:
         st.subheader("Voluntary Activities")
         
         # Sliders for different voluntary activities
@@ -66,7 +65,6 @@ def main():
         st.subheader("Positive Emotions")
         
         # Sliders for positive emotions (past, present, future)
-        st.write("Past Positive Emotions")
         past_positive_emotions = {
             "Serenity": st.slider("Past Serenity", 0.0, 10.0, 5.0),
             "Fulfillment": st.slider("Past Fulfillment", 0.0, 10.0, 5.0),
@@ -74,7 +72,6 @@ def main():
             "Satisfaction": st.slider("Past Satisfaction", 0.0, 10.0, 5.0)
         }
         
-        st.write("Present Positive Emotions")
         present_positive_emotions = {
             "Pleasure": st.slider("Present Pleasure", 0.0, 10.0, 5.0),
             "Ecstasy": st.slider("Present Ecstasy", 0.0, 10.0, 5.0),
@@ -82,7 +79,7 @@ def main():
             "Calm": st.slider("Present Calm", 0.0, 10.0, 5.0),
             "Ebullience": st.slider("Present Ebullience", 0.0, 10.0, 5.0)
         }
-        st.write("Future Positive Emotions")
+        
         future_positive_emotions = {
             "Faith": st.slider("Future Faith", 0.0, 10.0, 5.0),
             "Trust": st.slider("Future Trust", 0.0, 10.0, 5.0),
