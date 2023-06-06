@@ -43,6 +43,13 @@ def main():
         safe_environment = st.slider("Living in a safe and pleasant environment", 0.0, 10.0, 5.0)
         social_support = st.slider("Strong social support", 0.0, 10.0, 5.0)
         engagement_social = st.slider("Engagement in social activities", 0.0, 10.0, 5.0)
+        
+        # Calculate life circumstances based on slider values
+        life_circumstances = (
+            good_health + stable_relationship + fulfilling_job +
+            decent_income + comfortable_income + safe_environment +
+            social_support + engagement_social
+        )
     
     with st.sidebar:
         st.subheader("Voluntary Activities")
@@ -60,6 +67,13 @@ def main():
         perception_friends = st.slider("Perception of life in friends", 0.0, 10.0, 5.0)
         perception_health = st.slider("Perception of life in health", 0.0, 10.0, 5.0)
         perception_generativity = st.slider("Perception of life in generativity", 0.0, 10.0, 5.0)
+        
+        # Calculate voluntary activities based on slider values
+        voluntary_activities = (
+            past_thoughts + gratitude + forgiveness + transgression + motivation +
+            perception_life + perception_profession + perception_finances +
+            perception_play + perception_friends + perception_health + perception_generativity
+        )
     
     with st.container():
         st.subheader("Positive Emotions")
