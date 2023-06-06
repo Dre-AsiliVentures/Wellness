@@ -30,7 +30,7 @@ def main():
         set_point -= 0.5
     if weight_gain:
         set_point -= 0.5
-
+    
     with st.container():
         st.subheader("Life Circumstances")
         
