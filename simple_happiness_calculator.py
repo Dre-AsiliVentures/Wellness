@@ -6,6 +6,17 @@ def calculate_happiness(alpha, beta, income, age, education, sleep_duration, err
     happiness = alpha + beta * product + sum(error_terms)
     return happiness
 
+# Function to normalize the happiness score between 0 and 1
+def normalize_happiness(happiness):
+    # Define the minimum and maximum happiness values
+    min_happiness = 0
+    max_happiness = 100
+
+    # Normalize the happiness score
+    normalized_happiness = (happiness - min_happiness) / (max_happiness - min_happiness)
+
+    return normalized_happiness
+
 # Streamlit application
 def main():
     # Title and description
@@ -25,15 +36,15 @@ def main():
     st.title("Personality and Life choices")
     error1 = st.slider("Rate your Optimism in Life", -10, 10, 0)
     error2 = st.selectbox("Any involvement in Drugs, Crime, or Infidelity", ["No", "Medium", "Yes"])
-    error3 = st.checkbox("I believe in: Charity, Reslience, Moderation or Hard work")
+    error3 = st.checkbox("I believe in: Charity, Resilience, Moderation or Hard work")
 
     error_terms = [error1]
     if error2 == "No":
-        error_terms.append(-5)
-    elif error2 == "Medium":
         error_terms.append(0)
+    elif error2 == "Medium":
+        error_terms.append(-10)
     elif error2 == "Yes":
-        error_terms.append(5)
+        error_terms.append(-15)
 
     if error3:
         error_terms.append(10)
@@ -41,11 +52,15 @@ def main():
     # Calculate happiness
     happiness = calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms)
 
+    # Normalize happiness between 0 and 1
+    normalized_happiness = normalize_happiness(happiness)
+
     # Display happiness
     st.sidebar.write("")
     if st.sidebar.button('Calculate my Happinesss'):
         st.sidebar.subheader("Happiness Score:")
-        st.sidebar.write(happiness)
+        st.sidebar.write(normalized_happiness)
+
 # Run the Streamlit application
 if __name__ == '__main__':
     main()
