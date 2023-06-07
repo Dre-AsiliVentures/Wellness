@@ -42,16 +42,12 @@ def main():
     error2 = st.selectbox("Any involvement in Drugs, Crime, or Infidelity", ["No", "Medium", "Yes"])
     error3 = st.checkbox("I believe in: Charity, Resilience, Moderation or Hard work")
 
-    error_terms = [error1]
-    if error2 == "No":
-        error_terms.append(0)
-    elif error2 == "Medium":
-        error_terms.append(-10)
-    elif error2 == "Yes":
-        error_terms.append(-15)
+    # Normalize the error variables
+    normalized_error1 = normalize_error(error1)
+    normalized_error2 = normalize_error(0 if error2 == "No" else -10 if error2 == "Medium" else -15)
+    normalized_error3 = 1 if error3 else 0
 
-    if error3:
-        error_terms.append(10)
+    error_terms = [normalized_error1, normalized_error2, normalized_error3]
 
     # Calculate happiness
     happiness = calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms)
