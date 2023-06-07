@@ -68,6 +68,8 @@ def main():
     if st.sidebar.button('Calculate my Happiness'):
         st.sidebar.subheader("Happiness Score:")
         st.sidebar.write(normalized_happiness)
+        st.sidebar.subheader("My Happiness as a Percentage:")
+        st.sidebar.write(round(normalized_happiness * 100, 2))
 
 # Run the Streamlit application
 if __name__ == '__main__':
