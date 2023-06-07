@@ -14,25 +14,25 @@ def main():
 
     # Sliders for variables
     st.sidebar.title("Input Variables")
-    alpha = st.sidebar.slider("Alpha", 0, 100, 50)
-    beta = st.sidebar.slider("Beta", 0.0, 1.0, 0.5)
-    income = st.sidebar.slider("Income", 0, 100000, 50000)
-    age = st.sidebar.slider("Age", 18, 100, 30)
-    education = st.sidebar.slider("Education Level", 0, 20, 10)
-    sleep_duration = st.sidebar.slider("Sleep Duration (hours)", 0, 12, 8)
+    alpha = st.slider("How happy are your parent(s)/guardian", 0, 100, 50)
+    beta = st.slider("How well do you believe in love", 0.0, 1.0, 0.5)
+    income = st.slider("Income", 0, 1000000000, 50)
+    age = st.slider("Age", 7, 100, 7)
+    education = st.slider("How Educated are you", 0, 100, 10)
+    sleep_duration = st.slider("What your last Sleep Duration (hours)", 0, 12, 8)
 
     # Error terms
     st.sidebar.title("Error Terms")
-    error1 = st.sidebar.slider("Error 1", -10, 10, 0)
-    error2 = st.sidebar.selectbox("Error 2", ["Low", "Medium", "High"])
-    error3 = st.sidebar.checkbox("Error 3")
+    error1 = st.slider("Rate your Optimism in Life", -10, 10, 0)
+    error2 = st.selectbox("Any involvement in Drugs, Crime, or Infidelity", ["No", "Medium", "Yes"])
+    error3 = st.checkbox("You believe in: Charity, Reslience, Moderation or Hard work")
 
     error_terms = [error1]
-    if error2 == "Low":
+    if error2 == "No":
         error_terms.append(-5)
     elif error2 == "Medium":
         error_terms.append(0)
-    elif error2 == "High":
+    elif error2 == "Yes":
         error_terms.append(5)
 
     if error3:
@@ -42,9 +42,9 @@ def main():
     happiness = calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms)
 
     # Display happiness
-    st.write("")
-    st.subheader("Happiness Score:")
-    st.write(happiness)
+    st.sidebar.write("")
+    st.sidebar.subheader("Happiness Score:")
+    st.sidebar.write(happiness)
 
 # Run the Streamlit application
 if __name__ == '__main__':
