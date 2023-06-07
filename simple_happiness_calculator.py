@@ -3,6 +3,8 @@ import streamlit as st
 # Function to calculate happiness using the provided formula
 def calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms):
     product = income * age * education * sleep_duration
+    st.write("What is the product: ")
+    st.write(product)
     happiness = alpha + beta * product + sum(error_terms)
     return happiness
 
