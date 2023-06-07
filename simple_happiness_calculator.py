@@ -19,7 +19,23 @@ def calculate_happiness(alpha, beta, income, age, education, sleep_duration, err
     normalized_happiness = (happiness - min_happiness) / (max_happiness - min_happiness)
 
     return normalized_happiness
+# Function to normalize the error variables
+def normalize_error(error):
+    # Define the minimum and maximum values for each error variable
+    if error == "error1":
+        min_value = -10
+        max_value = 10
+    elif error == "error2":
+        min_value = -15
+        max_value = 0
+    elif error == "error3":
+        min_value = 0
+        max_value = 1
 
+    # Normalize the error value
+    normalized_error = (error - min_value) / (max_value - min_value)
+
+    return normalized_error
 
 # Streamlit application
 def main():
