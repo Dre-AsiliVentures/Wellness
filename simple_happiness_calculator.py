@@ -39,7 +39,7 @@ def main():
     st.title("Input Variables")
     alpha = st.slider("How happy are your parent(s)/guardian", 0, 100, 50)
     beta = st.slider("How well do you believe in love", 0.0, 1.0, 0.5)
-    income = st.slider("Income", 0, 1000000, 50000)
+    income = st.slider("Income", 0, 1000000, 50000, step=1000)
     age = st.slider("Age", 7, 100, 7)
     education = st.slider("How Educated are you", 0, 100, 10)
     sleep_duration = st.slider("What your last Sleep Duration (hours)", 0, 24, 8)
