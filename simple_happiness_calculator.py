@@ -1,10 +1,20 @@
 import streamlit as st
 
 def calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms):
-    product = income * age * education * sleep_duration
+    # Normalize the input variables
+    normalized_income = income / 1000000
+    normalized_age = age / 100
+    normalized_education = education / 100
+    normalized_sleep_duration = sleep_duration / 24
+
+    # Calculate the product
+    product = normalized_income * normalized_age * normalized_education * normalized_sleep_duration
+
+    # Calculate the happiness value
     happiness = alpha + beta * product + sum(error_terms)
+
     # Normalize the happiness value between 0 and 1
-    min_happiness = 0
+    min_happiness = -100
     max_happiness = 100
     normalized_happiness = (happiness - min_happiness) / (max_happiness - min_happiness)
 
