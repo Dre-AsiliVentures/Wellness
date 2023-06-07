@@ -8,14 +8,15 @@ def calculate_happiness(alpha, beta, income, age, education, sleep_duration, err
 
 # Function to normalize the happiness score between 0 and 1
 def normalize_happiness(happiness):
-    # Define the minimum and maximum happiness values
-    min_happiness = -100
-    max_happiness = 100
+    # Calculate the mean and standard deviation of happiness
+    happiness_mean = 50  # Set the mean of happiness scores
+    happiness_std = 20  # Set the standard deviation of happiness scores
 
-    # Normalize the happiness score
-    normalized_happiness = (happiness - min_happiness) / (max_happiness - min_happiness)
+    # Compute the z-score
+    z_score = (happiness - happiness_mean) / happiness_std
 
-    return normalized_happiness
+    return z_score
+    #return normalized_happiness
 
 # Streamlit application
 def main():
