@@ -44,7 +44,7 @@ def main():
     # Display happiness
     st.sidebar.write("")
     st.sidebar.subheader("Happiness Score:")
-    if st.button('Calculate my Happinesss'):
+    if st.sidebar.button('Calculate my Happinesss'):
         st.sidebar.write(happiness)
 
 # Run the Streamlit application
