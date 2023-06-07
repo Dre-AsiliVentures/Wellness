@@ -9,7 +9,7 @@ def calculate_happiness(alpha, beta, income, age, education, sleep_duration, err
 # Function to normalize the happiness score between 0 and 1
 def normalize_happiness(happiness):
     # Define the minimum and maximum happiness values
-    min_happiness = 0
+    min_happiness = -100
     max_happiness = 100
 
     # Normalize the happiness score
