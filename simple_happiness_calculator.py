@@ -47,13 +47,13 @@ def main():
     happiness = calculate_happiness(alpha, beta, income, age, education, sleep_duration, error_terms)
 
     # Normalize happiness between 0 and 1
-    normalized_happiness = normalize_happiness(happiness)
+    #normalized_happiness = normalize_happiness(happiness)
 
     # Display happiness
     st.sidebar.write("")
     if st.sidebar.button('Calculate my Happinesss'):
         st.sidebar.subheader("Happiness Score:")
-        st.sidebar.write(normalized_happiness)
+        st.sidebar.write(happiness)
 
 # Run the Streamlit application
 if __name__ == '__main__':
