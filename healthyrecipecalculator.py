@@ -18,15 +18,21 @@ def main():
     filtered_df = df[df['Category'].isin(selected_categories)]
 
     # Get the current session state
-    if 'selected_ingredients' not in st.session_state:
-        st.session_state.selected_ingredients = []
+    session_state = st.session_state
+
+    # Initialize the session state for selected ingredients
+    if 'selected_ingredients' not in session_state:
+        session_state.selected_ingredients = []
+        for ingredient in filtered_df['Name of Ingredient']:
+            session_state[f'amount_{ingredient}'] = 0
+            session_state[f'units_{ingredient}'] = 0
 
     # Allow ingredient selection
     selected_ingredients = st.multiselect('Select Ingredients', filtered_df['Name of Ingredient'],
-                                          default=st.session_state.selected_ingredients)
+                                          default=session_state.selected_ingredients)
 
     # Store the selected ingredients in the session state
-    st.session_state.selected_ingredients = selected_ingredients
+    session_state.selected_ingredients = selected_ingredients
 
     # Convert units
     unit_conversion_factors = {
@@ -49,17 +55,17 @@ def main():
             recipe_units_used_key = f'units_{ingredient}'
 
             # Retrieve the previously entered values from the session state
-            amount_purchased = st.session_state.get(amount_purchased_key, 0)
-            recipe_units_used = st.session_state.get(recipe_units_used_key, 0)
+            amount_purchased = session_state[amount_purchased_key]
+            recipe_units_used = session_state[recipe_units_used_key]
 
             # Display the input fields and update the session state
             amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
                                                value=amount_purchased, key=amount_purchased_key)
-            st.session_state[amount_purchased_key] = amount_purchased
+            session_state[amount_purchased_key] = amount_purchased
 
             recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000,
                                           value=recipe_units_used, key=recipe_units_used_key)
-            st.session_state[recipe_units_used_key] = recipe_units_used
+            session_state[recipe_units_used_key] = recipe_units_used
 
             if amount_purchased != 0:
                 ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row[
