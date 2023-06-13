@@ -2,9 +2,7 @@ import streamlit as st
 
 def calculate_friendship(proximity, duration, frequency, intensity):
     score = proximity + duration + frequency + intensity
-    if proximity<=2:
-        return "Strangers"
-    elif (proximity <= 2 or duration <= 2) and frequency <= 2 and intensity <= 2:
+    if (proximity <= 2 or duration <= 2) and frequency <= 2 and intensity <= 2:
         return "Strangers"
     elif proximity <= 4 and (duration <= 4 or frequency <= 4) and intensity <= 4:
         return "Acquaintance"
