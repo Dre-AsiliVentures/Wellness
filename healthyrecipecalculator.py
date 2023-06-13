@@ -59,7 +59,14 @@ def main():
         # Calculate the ingredient cost
         if amount_purchased != 0:
             row = ingredient_data[ingredient]
-            edible_portion_yield = float(re.sub('[%]', '', row['Edible Portion Yield'])) / 100
+            edible_portion_yield = 0.0
+
+            # Check the data type of 'Edible Portion Yield' column and convert accordingly
+            if isinstance(row['Edible Portion Yield'], str):
+                edible_portion_yield = float(re.sub('[%]', '', row['Edible Portion Yield'])) / 100
+            elif isinstance(row['Edible Portion Yield'], int) or isinstance(row['Edible Portion Yield'], float):
+                edible_portion_yield = row['Edible Portion Yield'] / 100
+
             ingredient_cost = (recipe_units_used / amount_purchased) * edible_portion_yield * row['Unit Cost']
         else:
             ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
