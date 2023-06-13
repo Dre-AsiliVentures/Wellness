@@ -34,7 +34,8 @@ def main():
         row = filtered_df[filtered_df['Name of Ingredient'] == ingredient].iloc[0]
         amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1)
         recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000)
-        ingredient_cost = (amount_purchased / row['Edible Portion Yield']) * (recipe_units_used / row['Recipe Units Used']) * row['Unit Cost']
+        ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row['Unit Cost']
+        #ingredient_cost = (amount_purchased / row['Edible Portion Yield']) * (recipe_units_used / row['Recipe Units Used']) * row['Unit Cost']
         total_cost += ingredient_cost
 
     # Display the recipe cost
