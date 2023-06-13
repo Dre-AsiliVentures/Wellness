@@ -19,9 +19,10 @@ def main():
     frequency = st.slider("Frequency", 0, 10, 5)
     intensity = st.slider("Intensity", 0, 10, 5)
 
-    result = calculate_friendship(proximity, duration, frequency, intensity)
-
-    st.write("Based on the given values, your friendship level is:", result)
+    
+    if st.sidebar.button("Calculate Friendship Level"):
+        result = calculate_friendship(proximity, duration, frequency, intensity)
+        st.sidebar.write("Based on the given values, your friendship level is:", result)
 
 if __name__ == "__main__":
     main()
