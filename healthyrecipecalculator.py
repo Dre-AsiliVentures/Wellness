@@ -49,7 +49,7 @@ def main():
 
         # Display the input fields and update the ingredient data dictionary
         amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
-                                           value=amount_purchased, key=amount_purchased_key)
+                                           value=float(amount_purchased), key=amount_purchased_key)
         ingredient_data[ingredient][amount_purchased_key] = amount_purchased
 
         recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0.0, max_value=10000.0,
@@ -65,9 +65,9 @@ def main():
             if isinstance(row['Edible Portion Yield'], str):
                 edible_portion_yield = float(re.sub('[%]', '', row['Edible Portion Yield'])) / 100
             elif isinstance(row['Edible Portion Yield'], int) or isinstance(row['Edible Portion Yield'], float):
-                edible_portion_yield = row['Edible Portion Yield'] / 100
+                edible_portion_yield = float(row['Edible Portion Yield']) / 100
 
-            ingredient_cost = (recipe_units_used / amount_purchased) * edible_portion_yield * row['Unit Cost']
+            ingredient_cost = (recipe_units_used / amount_purchased) * edible_portion_yield * float(row['Unit Cost'])
         else:
             ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
 
