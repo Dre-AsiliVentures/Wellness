@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import re
 
 # Load the Excel file into a DataFrame
 url = 'https://asiliventures.com/wp-content/uploads/2023/06/Healthy-Food-Recipe-Calculator.xlsx'
@@ -58,7 +59,8 @@ def main():
         # Calculate the ingredient cost
         if amount_purchased != 0:
             row = ingredient_data[ingredient]
-            ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row['Unit Cost']
+            edible_portion_yield = float(re.sub('[%]', '', row['Edible Portion Yield'])) / 100
+            ingredient_cost = (recipe_units_used / amount_purchased) * edible_portion_yield * row['Unit Cost']
         else:
             ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
 
