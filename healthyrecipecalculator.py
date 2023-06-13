@@ -16,6 +16,9 @@ def main():
     # Initialize the selected ingredients list
     selected_ingredients = []
 
+    # Initialize total cost
+    total_cost = 0
+
     for category in selected_categories:
         # Filter ingredients based on the selected categories
         filtered_df = df[df['Category'] == category]
