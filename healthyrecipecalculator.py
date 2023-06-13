@@ -13,11 +13,11 @@ def main():
     # Create a sidebar for category selection
     selected_categories = st.sidebar.multiselect('Select Categories', categories)
 
-    # Filter ingredients based on the selected categories
-    filtered_df = df[df['Category'].isin(selected_categories)]
-
-    # Get the current session state
-    session_state = st.session_state
+    for category in selected_categories:
+        # Filter ingredients based on the selected categories
+        filtered_df = df[df['Category'].isin(selected_categories)]
+        # Get the current session state
+        session_state = st.session_state
 
     # Initialize the session state for selected ingredients
     if 'selected_ingredients' not in session_state:
