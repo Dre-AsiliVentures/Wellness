@@ -45,38 +45,36 @@ def main():
         filtered_df['Unit Cost'] = filtered_df.apply(lambda row: convert_unit_cost(row['Unit'], row['Unit Cost'],
                                                                                    unit_conversion_factors), axis=1)
 
-    # Compute recipe cost button
-    if st.button('Compute Recipe Cost'):
-        # Calculate recipe cost
-        total_cost = 0
-        for ingredient in selected_ingredients:
-            row = filtered_df[filtered_df['Name of Ingredient'] == ingredient].iloc[0]
-            amount_purchased_key = f'amount_{ingredient}'
-            recipe_units_used_key = f'units_{ingredient}'
+    # Calculate recipe cost
+    total_cost = 0
+    for ingredient in selected_ingredients:
+        row = filtered_df[filtered_df['Name of Ingredient'] == ingredient].iloc[0]
+        amount_purchased_key = f'amount_{ingredient}'
+        recipe_units_used_key = f'units_{ingredient}'
 
-            # Retrieve the previously entered values from the session state
-            amount_purchased = session_state[amount_purchased_key]
-            recipe_units_used = session_state[recipe_units_used_key]
+        # Retrieve the previously entered values from the session state
+        amount_purchased = session_state[amount_purchased_key]
+        recipe_units_used = session_state[recipe_units_used_key]
 
-            # Display the input fields and update the session state
-            amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
-                                               value=amount_purchased, key=amount_purchased_key)
-            session_state[amount_purchased_key] = amount_purchased
+        # Display the input fields and update the session state
+        amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
+                                           value=amount_purchased, key=amount_purchased_key)
+        session_state[amount_purchased_key] = amount_purchased
 
-            recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000,
-                                          value=recipe_units_used, key=recipe_units_used_key)
-            session_state[recipe_units_used_key] = recipe_units_used
+        recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000,
+                                      value=recipe_units_used, key=recipe_units_used_key)
+        session_state[recipe_units_used_key] = recipe_units_used
 
-            if amount_purchased != 0:
-                ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row[
-                    'Unit Cost']
-            else:
-                ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
+        if amount_purchased != 0:
+            ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row[
+                'Unit Cost']
+        else:
+            ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
 
-            total_cost += ingredient_cost
+        total_cost += ingredient_cost
 
-        # Display the recipe cost
-        st.write(f'Recipe Cost: ${total_cost:.2f}')
+    # Display the recipe cost
+    st.write(f'Recipe Cost: ${total_cost:.2f}')
 
 
 def convert_unit_cost(unit, cost, conversion_factors):
