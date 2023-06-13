@@ -8,8 +8,10 @@ def calculate_friendship(proximity, duration, frequency, intensity):
         return "Acquaintance"
     elif proximity <= 6 and duration <= 6 and frequency <= 6 and intensity <= 6:
         return "Close Friends"
-    else:
+    elif proximity >= 8 and duration >= 8 and frequency >= 8 and intensity >= 8:
         return "Significant Other"
+    else:
+        return "Friendship level not defined"
 
 def main():
     st.title("Friendship Calculator")
