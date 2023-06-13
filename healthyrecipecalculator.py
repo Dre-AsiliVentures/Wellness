@@ -8,7 +8,6 @@ df = pd.read_excel(url)
 # Get unique category values
 categories = df['Category'].unique()
 
-
 # Create the Streamlit application
 def main():
     # Create a sidebar for category selection
@@ -53,8 +52,8 @@ def main():
         recipe_units_used_key = f'units_{ingredient}'
 
         # Retrieve the previously entered values from the session state
-        amount_purchased = session_state[amount_purchased_key]
-        recipe_units_used = session_state[recipe_units_used_key]
+        amount_purchased = session_state.get(amount_purchased_key, 0)
+        recipe_units_used = session_state.get(recipe_units_used_key, 0)
 
         # Display the input fields and update the session state
         amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
