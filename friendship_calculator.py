@@ -9,7 +9,7 @@ def calculate_friendship(proximity, duration, frequency, intensity):
         return "Acquaintance"
     elif intensity >3 and score <= 12:
         return "Close Friends"
-    elif intesity>=4 and duration>3 and proximity>=3:
+    elif intensity>=4 and duration>3 and proximity>=3:
         return "Significant Other"
     else: 
         return ""
