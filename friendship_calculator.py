@@ -23,6 +23,9 @@ def main():
     if st.sidebar.button("Calculate Friendship Level"):
         result = calculate_friendship(proximity, duration, frequency, intensity)
         st.sidebar.write("Based on the given values, your friendship level is:", result)
+        if st.button('Reset'):
+            #st.caching.clear_cache()  # Clear the cache
+            st.experimental_rerun()  # Rerun the app
 
 if __name__ == "__main__":
     main()
