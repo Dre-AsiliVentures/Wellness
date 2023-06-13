@@ -23,40 +23,38 @@ def main():
         # Get the current session state
         session_state = st.session_state
 
-        for ingredient in filtered_df['Name of Ingredient']:
-            amount_purchased_key = f'amount_{ingredient}'
-            recipe_units_used_key = f'units_{ingredient}'
+        # Get unique ingredient values for the selected category
+        ingredients = filtered_df['Name of Ingredient'].unique()
 
-            # Retrieve the previously entered values from the session state
-            amount_purchased = session_state.get(amount_purchased_key, 0)
-            recipe_units_used = session_state.get(recipe_units_used_key, 0)
+        # Display the dropdown menu for ingredient selection
+        selected_ingredient = st.selectbox(f'Select Ingredient in {category}', ingredients)
 
-            # Display the input fields and update the session state
-            amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
-                                               value=amount_purchased, key=f'amount_{ingredient}')
-            session_state[amount_purchased_key] = amount_purchased
+        # Add the ingredient to the selected ingredients list
+        if selected_ingredient not in selected_ingredients:
+            selected_ingredients.append(selected_ingredient)
 
-            recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000,
-                                          value=recipe_units_used, key=f'units_{ingredient}')
-            session_state[recipe_units_used_key] = recipe_units_used
+        # Get the ingredient data based on the selected ingredient
+        ingredient_data = filtered_df[filtered_df['Name of Ingredient'] == selected_ingredient].iloc[0]
 
-            # Add the ingredient to the selected ingredients list
-            if ingredient not in selected_ingredients:
-                selected_ingredients.append(ingredient)
-
-    # Calculate recipe cost
-    total_cost = 0
-    for ingredient in selected_ingredients:
-        amount_purchased_key = f'amount_{ingredient}'
-        recipe_units_used_key = f'units_{ingredient}'
+        amount_purchased_key = f'amount_{selected_ingredient}'
+        recipe_units_used_key = f'units_{selected_ingredient}'
 
         # Retrieve the previously entered values from the session state
         amount_purchased = session_state.get(amount_purchased_key, 0)
         recipe_units_used = session_state.get(recipe_units_used_key, 0)
 
+        # Display the input fields and update the session state
+        amount_purchased = st.number_input(f'Amount purchased for {selected_ingredient}', min_value=0, step=1,
+                                           value=amount_purchased, key=amount_purchased_key)
+        session_state[amount_purchased_key] = amount_purchased
+
+        recipe_units_used = st.slider(f'Recipe units used for {selected_ingredient}', min_value=0, max_value=10000,
+                                      value=recipe_units_used, key=recipe_units_used_key)
+        session_state[recipe_units_used_key] = recipe_units_used
+
+        # Calculate the ingredient cost
         if amount_purchased != 0:
-            row = df[df['Name of Ingredient'] == ingredient].iloc[0]
-            ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row['Unit Cost']
+            ingredient_cost = (recipe_units_used / amount_purchased) * ingredient_data['Edible Portion Yield'] * ingredient_data['Unit Cost']
         else:
             ingredient_cost = 0  # Set the ingredient cost to 0 if amount_purchased is 0
 
