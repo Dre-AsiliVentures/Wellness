@@ -18,20 +18,16 @@ def main():
         filtered_df = df[df['Category'].isin(selected_categories)]
         # Get the current session state
         session_state = st.session_state
-
-    # Initialize the session state for selected ingredients
-    if 'selected_ingredients' not in session_state:
-        session_state.selected_ingredients = []
-        for ingredient in filtered_df['Name of Ingredient']:
-            session_state[f'amount_{ingredient}'] = 0
-            session_state[f'units_{ingredient}'] = 0
-
-    # Allow ingredient selection
-    selected_ingredients = st.multiselect('Select Ingredients', filtered_df['Name of Ingredient'],
-                                          default=session_state.selected_ingredients)
-
-    # Store the selected ingredients in the session state
-    session_state.selected_ingredients = selected_ingredients
+        # Initialize the session state for selected ingredients
+        if 'selected_ingredients' not in session_state:
+            session_state.selected_ingredients = []
+            for ingredient in filtered_df['Name of Ingredient']:
+                session_state[f'amount_{ingredient}'] = 0
+                session_state[f'units_{ingredient}'] = 0
+                # Allow ingredient selection
+                selected_ingredients = st.multiselect('Select Ingredients', filtered_df['Name of Ingredient'],default=session_state.selected_ingredients)
+                # Store the selected ingredients in the session state
+                session_state.selected_ingredients = selected_ingredients
 
     # Convert units
     unit_conversion_factors = {
