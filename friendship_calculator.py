@@ -11,7 +11,7 @@ def calculate_friendship(proximity, duration, frequency, intensity):
     elif proximity >= 8 and duration >= 8 and frequency >= 8 and intensity >= 8:
         return "Significant Other"
     else:
-        return "Friendship level not defined"
+        return "Lovers"
 
 #     if proximity <= 2 or duration <= 2:
 #         return "Strangers"
