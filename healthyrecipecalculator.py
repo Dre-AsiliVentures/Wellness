@@ -13,16 +13,15 @@ def main():
     # Create a sidebar for category selection
     selected_categories = st.sidebar.multiselect('Select Categories', categories)
 
+    # Initialize the selected ingredients list
+    selected_ingredients = []
+
     for category in selected_categories:
         # Filter ingredients based on the selected categories
         filtered_df = df[df['Category'] == category]
 
         # Get the current session state
         session_state = st.session_state
-
-        # Initialize the session state for selected ingredients
-        if 'selected_ingredients' not in session_state:
-            session_state.selected_ingredients = []
 
         for ingredient in filtered_df['Name of Ingredient']:
             amount_purchased_key = f'amount_{ingredient}'
@@ -41,9 +40,13 @@ def main():
                                           value=recipe_units_used, key=f'units_{ingredient}')
             session_state[recipe_units_used_key] = recipe_units_used
 
+            # Add the ingredient to the selected ingredients list
+            if ingredient not in selected_ingredients:
+                selected_ingredients.append(ingredient)
+
     # Calculate recipe cost
     total_cost = 0
-    for ingredient in session_state.selected_ingredients:
+    for ingredient in selected_ingredients:
         amount_purchased_key = f'amount_{ingredient}'
         recipe_units_used_key = f'units_{ingredient}'
 
