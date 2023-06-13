@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-from streamlit.report_thread import get_report_ctx
-from streamlit.server.server import Server
 
 # Load the Excel file into a DataFrame
 url = 'https://asiliventures.com/wp-content/uploads/2023/06/Healthy-Food-Recipe-Calculator.xlsx'
@@ -9,23 +7,6 @@ df = pd.read_excel(url)
 
 # Get unique category values
 categories = df['Category'].unique()
-
-
-# Create a SessionState class to store the widget values
-class SessionState:
-    def __init__(self, **kwargs):
-        self.__dict__.update(kwargs)
-
-
-# Get the current session state
-def get_session():
-    session_id = get_report_ctx().session_id
-    session_info = Server.get_current()._get_session_info(session_id)
-    if session_info is None:
-        return None
-    if "session_state" not in session_info:
-        session_info["session_state"] = SessionState()
-    return session_info["session_state"]
 
 
 # Create the Streamlit application
@@ -37,18 +18,15 @@ def main():
     filtered_df = df[df['Category'].isin(selected_categories)]
 
     # Get the current session state
-    session_state = get_session()
-
-    # Restore previously selected ingredients from the session state
-    if not hasattr(session_state, 'selected_ingredients'):
-        session_state.selected_ingredients = []
+    if 'selected_ingredients' not in st.session_state:
+        st.session_state.selected_ingredients = []
 
     # Allow ingredient selection
     selected_ingredients = st.multiselect('Select Ingredients', filtered_df['Name of Ingredient'],
-                                          default=session_state.selected_ingredients)
+                                          default=st.session_state.selected_ingredients)
 
     # Store the selected ingredients in the session state
-    session_state.selected_ingredients = selected_ingredients
+    st.session_state.selected_ingredients = selected_ingredients
 
     # Convert units
     unit_conversion_factors = {
@@ -71,17 +49,17 @@ def main():
             recipe_units_used_key = f'units_{ingredient}'
 
             # Retrieve the previously entered values from the session state
-            amount_purchased = session_state.__dict__.get(amount_purchased_key, 0)
-            recipe_units_used = session_state.__dict__.get(recipe_units_used_key, 0)
+            amount_purchased = st.session_state.get(amount_purchased_key, 0)
+            recipe_units_used = st.session_state.get(recipe_units_used_key, 0)
 
             # Display the input fields and update the session state
             amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
                                                value=amount_purchased, key=amount_purchased_key)
-            session_state.__dict__[amount_purchased_key] = amount_purchased
+            st.session_state[amount_purchased_key] = amount_purchased
 
             recipe_units_used = st.slider(f'Recipe units used for {ingredient}', min_value=0, max_value=10000,
                                           value=recipe_units_used, key=recipe_units_used_key)
-            session_state.__dict__[recipe_units_used_key] = recipe_units_used
+            st.session_state[recipe_units_used_key] = recipe_units_used
 
             if amount_purchased != 0:
                 ingredient_cost = (recipe_units_used / amount_purchased) * row['Edible Portion Yield'] * row[
