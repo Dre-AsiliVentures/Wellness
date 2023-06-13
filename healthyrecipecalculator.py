@@ -20,9 +20,6 @@ def main():
         # Filter ingredients based on the selected categories
         filtered_df = df[df['Category'] == category]
 
-        # Get the current session state
-        session_state = st.session_state
-
         # Get unique ingredient values for the selected category
         ingredients = filtered_df['Name of Ingredient'].unique()
 
@@ -40,17 +37,17 @@ def main():
         recipe_units_used_key = f'units_{selected_ingredient}'
 
         # Retrieve the previously entered values from the session state
-        amount_purchased = session_state.get(amount_purchased_key, 0)
-        recipe_units_used = session_state.get(recipe_units_used_key, 0)
+        amount_purchased = st.session_state.get(amount_purchased_key, 0)
+        recipe_units_used = st.session_state.get(recipe_units_used_key, 0)
 
         # Display the input fields and update the session state
         amount_purchased = st.number_input(f'Amount purchased for {selected_ingredient}', min_value=0, step=1,
                                            value=amount_purchased, key=amount_purchased_key)
-        session_state[amount_purchased_key] = amount_purchased
+        st.session_state[amount_purchased_key] = amount_purchased
 
         recipe_units_used = st.slider(f'Recipe units used for {selected_ingredient}', min_value=0, max_value=10000,
                                       value=recipe_units_used, key=recipe_units_used_key)
-        session_state[recipe_units_used_key] = recipe_units_used
+        st.session_state[recipe_units_used_key] = recipe_units_used
 
         # Calculate the ingredient cost
         if amount_purchased != 0:
