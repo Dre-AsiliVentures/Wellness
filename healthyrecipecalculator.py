@@ -44,8 +44,11 @@ def main():
         recipe_units_used_key = f'units_{ingredient}'
 
         # Retrieve the previously entered values from the ingredient data dictionary
-        amount_purchased = ingredient_data[ingredient].get(amount_purchased_key, 0)
-        recipe_units_used = ingredient_data[ingredient].get(recipe_units_used_key, 0)
+        #amount_purchased = ingredient_data[ingredient].get(amount_purchased_key, 0)
+        #recipe_units_used = ingredient_data[ingredient].get(recipe_units_used_key, 0)
+        amount_purchased = float(ingredient_data[ingredient].get(amount_purchased_key, 0))
+        recipe_units_used = float(ingredient_data[ingredient].get(recipe_units_used_key, 0))
+
 
         # Display the input fields and update the ingredient data dictionary
         amount_purchased = st.number_input(f'Amount purchased for {ingredient}', min_value=0, step=1,
