@@ -43,10 +43,10 @@ def main():
         if st.sidebar.button('Reset'):
             #st.caching.clear_cache()  # Clear the cache
             #Reset the slider values to their default values
-            proximity.reset()
-            duration.reset()
-            frequency.reset()
-            intensity.reset()
+            st.session_state["proximity"] = 5
+            st.session_state["duration"] = 5
+            st.session_state["frequency"] = 5
+            st.session_state["intensity"] = 5
 #             proximity.value = 5
 #             duration.value = 5
 #             frequency.value = 5
