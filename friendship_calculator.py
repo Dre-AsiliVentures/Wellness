@@ -42,10 +42,15 @@ def main():
         st.sidebar.write("Based on the given values, your friendship level is:", result)
         if st.sidebar.button('Reset'):
             #st.caching.clear_cache()  # Clear the cache
-            proximity.value = 5
-            duration.value = 5
-            frequency.value = 5
-            intensity.value = 5
+            #Reset the slider values to their default values
+            proximity.reset()
+            duration.reset()
+            frequency.reset()
+            intensity.reset()
+#             proximity.value = 5
+#             duration.value = 5
+#             frequency.value = 5
+#             intensity.value = 5
             st.experimental_rerun()  # Rerun the app
 
 if __name__ == "__main__":
