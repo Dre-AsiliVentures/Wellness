@@ -43,16 +43,16 @@ else:
     inches = st.number_input("Enter your height (in):")
     height = feet * 12 + inches
 
-if st.sidebar.button("Calculate BMI"):
+if st.button("Calculate BMI"):
     st.session_state.weight = weight
     st.session_state.height = height
     st.session_state.unit = unit
 
     bmi = calculate_bmi(weight, height, unit)
     classification = classify_bmi(bmi)
-    st.sidebar.write(f"Your BMI: {bmi:.2f}")
-    st.sidebar.write("Classification:", classification)
-    st.sidebar.write(recommend_weight_range(height, unit))
+    st.write(f"Your BMI: {bmi:.2f}")
+    st.write("Classification:", classification)
+    st.write(recommend_weight_range(height, unit))
 
-    if st.sidebar.button("Reset"):
+    if st.button("Reset"):
         reset_values()
