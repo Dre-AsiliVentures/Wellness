@@ -26,6 +26,10 @@ def recommend_weight_range(height, unit):
         min_weight_lb = 18.5 * height ** 2 / 703
         max_weight_lb = 24.9 * height ** 2 / 703
         return f"Recommended weight range: {min_weight_lb:.1f} - {max_weight_lb:.1f} lb"
+def reset_values():
+    st.session_state.weight = 0
+    st.session_state.height = 0
+    st.session_state.unit = "Metric"
 
 st.title("BMI Calculator")
 
@@ -40,8 +44,15 @@ else:
     height = feet * 12 + inches
 
 if st.sidebar.button("Calculate BMI"):
+    st.session_state.weight = weight
+    st.session_state.height = height
+    st.session_state.unit = unit
+
     bmi = calculate_bmi(weight, height, unit)
     classification = classify_bmi(bmi)
     st.sidebar.write(f"Your BMI: {bmi:.2f}")
     st.sidebar.write("Classification:", classification)
     st.sidebar.write(recommend_weight_range(height, unit))
+
+    if st.sidebar.button("Reset"):
+        reset_values()
