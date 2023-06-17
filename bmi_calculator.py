@@ -1,10 +1,10 @@
 import streamlit as st
 
 def calculate_bmi(weight, height, unit):
-    if unit == "Imperial":
-        bmi = (weight / (height * height)) * 703
+    if unit == "Metric":
+        bmi = weight / (height / 100) ** 2
     else:
-        bmi = weight / (height * height)
+        bmi = (weight / (height ** 2)) * 703
     return bmi
 
 def classify_bmi(bmi):
@@ -18,19 +18,25 @@ def classify_bmi(bmi):
         return "Obese"
 
 def recommend_weight_range(height, unit):
-    if unit == "Imperial":
-        height_cm = height * 2.54
+    if unit == "Metric":
+        min_weight = 18.5 * (height / 100) ** 2
+        max_weight = 24.9 * (height / 100) ** 2
     else:
-        height_cm = height
-    min_weight = 18.5 * (height_cm * height_cm) / 10000
-    max_weight = 24.9 * (height_cm * height_cm) / 10000
+        min_weight = 18.5 * height ** 2 / 703
+        max_weight = 24.9 * height ** 2 / 703
     return f"Recommended weight range: {min_weight:.1f} - {max_weight:.1f} kg"
 
 st.title("BMI Calculator")
 
-unit = st.selectbox("Select unit of measurement:", ["Imperial", "Metric"])
-weight = st.number_input(f"Enter your weight ({unit}):")
-height = st.number_input(f"Enter your height ({unit}):")
+unit = st.selectbox("Select unit of measurement:", ["Metric", "Imperial"])
+if unit == "Metric":
+    weight = st.number_input("Enter your weight (kg):")
+    height = st.number_input("Enter your height (cm):")
+else:
+    weight = st.number_input("Enter your weight (lb):")
+    feet = st.number_input("Enter your height (ft):")
+    inches = st.number_input("Enter your height (in):")
+    height = feet * 12 + inches
 
 if st.sidebar.button("Calculate BMI"):
     bmi = calculate_bmi(weight, height, unit)
