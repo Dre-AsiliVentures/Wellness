@@ -21,10 +21,11 @@ def recommend_weight_range(height, unit):
     if unit == "Metric":
         min_weight = 18.5 * (height / 100) ** 2
         max_weight = 24.9 * (height / 100) ** 2
+        return f"Recommended weight range: {min_weight:.1f} - {max_weight:.1f} kg"
     else:
-        min_weight = 18.5 * height ** 2 / 703
-        max_weight = 24.9 * height ** 2 / 703
-    return f"Recommended weight range: {min_weight:.1f} - {max_weight:.1f} kg"
+        min_weight_lb = 18.5 * height ** 2 / 703
+        max_weight_lb = 24.9 * height ** 2 / 703
+        return f"Recommended weight range: {min_weight_lb:.1f} - {max_weight_lb:.1f} lb"
 
 st.title("BMI Calculator")
 
