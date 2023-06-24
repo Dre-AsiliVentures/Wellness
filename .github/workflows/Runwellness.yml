@@ -24,9 +24,6 @@ jobs:
       - name: Set up Secrets
         env:
           SECRETS_FILE: ${{ secrets.WELLNESSGURU }}
-    run: |
-          mkdir $HOME/.streamlit
-        eHOME/.streamlit/secrets.toml
 
       - name: Run Streamlit Application
         run: streamlit accesstoken.py
