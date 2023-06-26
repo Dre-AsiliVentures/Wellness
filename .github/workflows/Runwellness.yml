@@ -1,5 +1,6 @@
 name: Deploy Streamlit Application
-
+env:
+    wellnessguru: ${{ secrets.WELLNESSGURU }}
 on:
   push:
     branches:
@@ -21,9 +22,6 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Set up Secrets
-        env:
-          SECRETS_FILE: ${{ secrets.WELLNESSGURU }}
 
       - name: Run Streamlit Application
         run: streamlit accesstoken.py
