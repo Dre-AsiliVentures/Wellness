@@ -5,7 +5,8 @@ import streamlit as st
 
 
 # Retrieve the value of the secret
-new_secret = config('WELLNESSGURU')
+#new_secret = config('wellnessenvguru')
+new_secret = config('WELLNESSENVGURU')
 
 my_secret = os.environ.get('WELLNESSGURU')
 
