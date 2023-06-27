@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: EchoSecretTest
+      - name: SecretTestStreamlitRun
         run: |
-          echo $WELLNESSGURU
+          export WELLNESSGURU="${{ secrets.WELLNESSGURU }}"
+          streamlit run accesstoken.py
         env:
           WELLNESSGURU: ${{ secrets.WELLNESSGURU }}
 
