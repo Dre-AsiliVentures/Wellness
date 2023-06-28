@@ -2,7 +2,7 @@ import os
 import streamlit as st
 
 
-
+st.write(os.environ.items())
 
 my_secret = os.environ.get('WELLNESSGURU')
 
