@@ -2,7 +2,9 @@ name: Deploy Streamlit Application
 
 
 on:
-  repository_dispatch
+  push:
+    branches:
+      - main  # Or your desired branch name
 
 jobs:
   deploy:
