@@ -2,7 +2,7 @@ name: Deploy Streamlit Application
 
 
 on:
-  workflow_dispatch
+  repository_dispatch
 
 jobs:
   deploy:
