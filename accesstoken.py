@@ -1,7 +1,9 @@
 import os
 import streamlit as st
 
-
+# headers={
+#   "authorization":st.secrets["WELLNESSGURU"]
+# }
 st.write(os.environ.items())
 
 #my_secret = os.environ.get('WELLNESSGURU')
