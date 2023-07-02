@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main  # Or your desired branch name
-
+env:
+ WELLNESSGURU: ${{ secrets.WELLNESSGURU }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
