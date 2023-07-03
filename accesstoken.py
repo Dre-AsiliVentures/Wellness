@@ -3,10 +3,10 @@ import os
 import streamlit as st
 
 
-load_dotenv()  # Load the secrets from .env file
+#load_dotenv()  # Load the secrets from .env file
 
 # Access secrets using os.getenv('SECRET_NAME')
-wellness_api_key = os.getenv('WELLNESSAPI_KEY')
+#wellness_api_key = os.getenv('WELLNESSAPI_KEY')
 # headers={
 #   "authorization":st.secrets["WELLNESSGURU"]
 # }
