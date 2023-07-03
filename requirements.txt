@@ -1,4 +1,4 @@
 openpyxl
 pandas
-python-decouple
+python-dotenv
 streamlit
